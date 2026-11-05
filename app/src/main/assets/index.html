@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Accueil 208</title>
+<style>
+:root{--bg1:#10151c;--bg2:#2a1a10;--fg:#f4efe9;--mut:#a9a39b;--glass:rgba(255,255,255,.09);--line:rgba(255,255,255,.14);--ac:#e08a4a;--ok:#5fcf8a;--bad:#ff6b5e;--blur:18px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-eff=light]{--bg1:#e9eef4;--bg2:#f6e3d2;--fg:#1d232b;--mut:#5d6672;--glass:rgba(255,255,255,.6);--line:rgba(0,0,0,.1)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;color:var(--fg);background:linear-gradient(140deg,var(--bg1),var(--bg2));display:flex;min-height:100%;overflow:hidden}
+body.w1{--bg1:#0b1a2e;--bg2:#0a5a78}body.w2{--bg1:#1b1b1b;--bg2:#6b3a1a}body.w3{--bg1:#1c0f2e;--bg2:#b5365a}
+[data-eff=light] body.w1{--bg1:#d6e6f7;--bg2:#9fd3e6}[data-eff=light] body.w2{--bg1:#eee;--bg2:#e9c5a4}[data-eff=light] body.w3{--bg1:#f1dcf5;--bg2:#f5b6c4}
+nav{width:84px;flex:none;display:flex;flex-direction:column;gap:8px;padding:12px 10px;background:var(--glass);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));border-right:1px solid var(--line)}
+nav button{flex:1;border:0;border-radius:16px;background:none;color:var(--mut);font:inherit;font-size:11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:48px}
+nav button span{font-size:24px}
+nav button.on{background:var(--ac);color:#fff}
+nav button:focus-visible,button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+main{flex:1;min-width:0;padding:16px;overflow:auto;display:none}
+main.on{display:block}
+.g{background:var(--glass);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));border:1px solid var(--line);border-radius:22px;padding:16px}
+body.noglass .g,body.noglass nav{backdrop-filter:none;background:rgba(40,40,40,.85);color:#fff}
+h2{font-size:20px;margin-bottom:10px}
+.row{display:grid;gap:14px}
+.home{grid-template-columns:1fr 1fr}
+.clock{font-size:64px;font-weight:700;letter-spacing:-2px;line-height:1}
+.mut{color:var(--mut);font-size:14px}
+.apps{grid-column:1/3;display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:12px}
+.apps button{border:0;background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:12px 4px;color:var(--fg);font:inherit;font-size:12px;cursor:pointer}
+.apps i{display:block;font-style:normal;font-size:32px;margin-bottom:4px}
+.pl{display:flex;align-items:center;gap:12px;margin-top:8px}
+.pl button{width:48px;height:48px;border-radius:50%;border:0;background:var(--ac);color:#fff;font-size:20px;cursor:pointer}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:8px}.bar b{display:block;height:100%;background:var(--ac)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chips button,.btn{border:1px solid var(--line);background:var(--glass);color:var(--fg);border-radius:14px;padding:10px 14px;font:inherit;font-size:13px;cursor:pointer;min-height:44px}
+.chips button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.car{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center}
+.plate{touch-action:none;cursor:grab;width:100%;height:420px;max-height:62vh;display:block}
+#cv{width:100%;height:100%;display:block}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.tile b{display:block;font-size:30px;margin-top:4px}
+.ent{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.tag{padding:4px 10px;border-radius:10px;font-size:12px;color:#102;background:var(--ok)}.tag.w{background:#f0c24b}.tag.b{background:var(--bad)}
+input{font:inherit;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--glass);color:var(--fg);width:110px}
+.chk{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;place-items:center;z-index:9;padding:16px}
+#ov.on{display:grid}#ov .g{max-width:440px;width:100%;background:var(--bg1);color:var(--fg)}
+#al{position:fixed;left:100px;right:16px;top:calc(8px + env(safe-area-inset-top,0px));background:var(--bad);color:#fff;border-radius:16px;padding:14px;font-weight:700;display:none;z-index:8}
+.demo{font-size:11px;color:var(--mut);margin-top:10px}
+@media(max-width:760px){.home,.car{grid-template-columns:1fr}.apps{grid-column:1}.plate{height:300px}nav{width:64px}nav button{font-size:0}#al{left:80px}}
+@media print{nav,.noprint,#ov,#al{display:none!important}body{background:#fff;color:#000;display:block;overflow:visible}main{display:none}#m-ent{display:block!important}.g{background:none;border:0;color:#000}}
+</style></head>
+<body class="w2">
+<nav aria-label="Menu">
+<button data-t="home" class="on"><span>🏠</span>Accueil</button>
+<button data-t="car"><span>🚗</span>Voiture</button>
+<button data-t="trip"><span>⛽</span>Bord</button>
+<button data-t="ent"><span>🔧</span>Entretien</button>
+<button data-t="sec"><span>🛡️</span>Sécurité</button>
+</nav>
+<div id="al"></div>
+
+<main id="m-home" class="on"><div class="row home">
+<div class="g"><div class="clock" id="clk">--:--</div><div class="mut" id="dt"></div><div class="mut" id="tmp" style="margin-top:8px"></div></div>
+<div class="g"><h2>Musique</h2><div id="trk">Aucune lecture</div><div class="mut">Bluetooth / USB</div><div class="bar"><b id="pb" style="width:0"></b></div>
+<div class="pl"><button aria-label="Précédent" onclick="nx(-1)">⏮</button><button id="pp" aria-label="Lecture" onclick="tg()">▶</button><button aria-label="Suivant" onclick="nx(1)">⏭</button></div></div>
+<div class="apps">
+<button onclick="L('com.google.android.apps.maps')"><i>🧭</i>Navigation</button><button onclick="L('com.google.android.dialer,com.android.dialer')"><i>📞</i>Téléphone</button><button onclick="L('com.spotify.music,com.google.android.apps.youtube.music,com.android.music')"><i>🎵</i>Musique</button><button onclick="L('com.mediatek.fmradio,com.android.fmradio')"><i>📻</i>Radio</button><button onclick="L('com.google.android.projection.gearhead')"><i>📱</i>Android Auto</button><button onclick="L('com.waze')"><i>🗺️</i>Waze</button><button onclick="L('settings')"><i>⚙️</i>Réglages</button><button onclick="L('com.android.chrome,org.mozilla.firefox')"><i>🌐</i>Web</button></div>
+<div class="g" style="grid-column:1/-1"><h2>Apparence</h2>
+<div class="chips" id="th"><button data-v="clair">Clair</button><button data-v="sombre">Sombre</button><button data-v="auto" class="on">Auto</button></div>
+<div class="chips" id="wp"><button data-v="w1">Océan</button><button data-v="w2" class="on">Cuivre</button><button data-v="w3">Néon</button></div>
+<div class="chips"><button id="gl" class="on">Effet verre : oui</button></div></div>
+</div></main>
+
+<main id="m-car"><div class="car">
+<div class="plate" id="plate"><canvas id="cv"></canvas><span id="blL" hidden></span><span id="blR" hidden></span></div>
+<div class="g"><h2>Ouvrants</h2><div class="chips" id="op">
+<button data-d="fl">Porte G</button><button data-d="fr">Porte D</button><button data-d="tr">Hayon</button>
+<button data-d="all">Tout</button><button data-d="none">Fermer tout</button></div>
+<div class="chips" id="vw"><button data-v="a">3/4</button><button data-v="t">Dessus</button><button data-v="p">Profil</button><button data-v="f">Face</button></div>
+<div class="chips" id="cl"><button data-c="#8a8d90">Gris</button><button data-c="#e8e8e6">Blanc</button><button data-c="#b3202a">Rouge</button><button data-c="#1f4f8f">Bleu</button><button data-c="#1b1c1e">Noir</button></div>
+<p class="mut" style="margin-top:12px">Fais tourner la voiture au doigt (le haut et le bas règlent l’inclinaison).</p>
+<div class="chips"><button id="sim">Simuler la conduite</button></div>
+<div class="mut" style="margin-top:10px">Vitesse : <b id="spd">0</b> km/h · Recul : <b id="rad">—</b></div>
+<p class="demo">Démo : les valeurs sont simulées. Voir les notes pour le branchement CAN.</p></div>
+</div></main>
+
+<main id="m-trip"><h2>Ordinateur de bord</h2><div class="tiles" id="tiles"></div><p class="demo">Valeurs simulées.</p></main>
+
+<main id="m-ent"><div class="g"><h2>Carnet d’entretien</h2>
+<div class="mut">Kilométrage actuel : <b id="kmv"></b> km</div>
+<div id="ents"></div>
+<div class="noprint chips" style="align-items:center">
+<input id="n-n" placeholder="Nom" style="width:140px"><input id="n-k" type="number" placeholder="Tous les km"><input id="n-m" type="number" placeholder="Tous les mois">
+<button class="btn" id="add">Ajouter</button><button class="btn" onclick="print()">Exporter en PDF</button></div></div></main>
+
+<main id="m-sec"><div class="g"><h2>Alertes de sécurité</h2>
+<p class="mut">L’écran « Prêt à partir » s’affiche au démarrage. Une alerte rouge apparaît si un ouvrant s’ouvre en roulant.</p>
+<div class="chips"><button class="btn" id="rd">Voir « Prêt à partir »</button></div></div></main>
+
+<div id="ov" role="dialog" aria-modal="true"><div class="g"><h2>Prêt à partir ?</h2><div id="ck"></div><div class="chips"><button class="btn on" id="go" style="background:var(--ac);color:#fff">C’est parti</button></div></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let st={th:'auto',gl:true,km:87450,fuel:62,bat:12.6,ext:20,rpm:0,spd:0,wash:true};
+let doors={fl:0,fr:0,tr:0};
+try{Object.assign(st,JSON.parse(localStorage.getItem('st208')||'{}'))}catch(e){}
+function save(){try{localStorage.setItem('st208',JSON.stringify({th:st.th,gl:st.gl,km:st.km,wp:document.body.className}))}catch(e){}}
+// nav
+$$('nav button').forEach(b=>b.onclick=()=>{$$('nav button').forEach(x=>x.classList.toggle('on',x===b));$$('main').forEach(m=>m.classList.toggle('on',m.id==='m-'+b.dataset.t))});
+// thème
+function eff(){const h=new Date().getHours();let t=st.th;if(t==='auto')t=(h>=19||h<7)?'sombre':'clair';document.documentElement.dataset.eff=t==='clair'?'light':'dark'}
+$$('#th button').forEach(b=>{if(b.dataset.v===st.th){$$('#th button').forEach(x=>x.classList.toggle('on',x===b))}b.onclick=()=>{st.th=b.dataset.v;$$('#th button').forEach(x=>x.classList.toggle('on',x===b));eff();save()}});
+$$('#wp button').forEach(b=>b.onclick=()=>{document.body.className=b.dataset.v+(st.gl?'':' noglass');$$('#wp button').forEach(x=>x.classList.toggle('on',x===b));save()});
+$('#gl').onclick=e=>{st.gl=!st.gl;document.body.classList.toggle('noglass',!st.gl);e.target.textContent='Effet verre : '+(st.gl?'oui':'non');e.target.classList.toggle('on',st.gl);save()};
+eff();
+// horloge
+function tick(){const d=new Date();$('#clk').textContent=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});$('#dt').textContent=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});$('#tmp').textContent='Extérieur : '+st.ext.toFixed(0)+' °C';eff()}
+tick();setInterval(tick,15000);
+// musique (démo)
+const tr=['Titre 1 — Artiste','Titre 2 — Artiste','Titre 3 — Artiste'];let ti=0,pl=false,pr=0;
+function nx(d){ti=(ti+d+tr.length)%tr.length;pr=0;rm()}function tg(){pl=!pl;rm()}
+function rm(){$('#trk').textContent=pl||pr?tr[ti]:'Aucune lecture';$('#pp').textContent=pl?'⏸':'▶';$('#pb').style.width=pr+'%'}
+setInterval(()=>{if(pl){pr=(pr+1)%101;rm()}},1000);
+// voiture 3D (canvas)
+const PL=$('#plate'),cv=$('#cv'),cx=cv.getContext('2d'),RD=Math.PI/180,R=.31,WX=[1.14,-1.4],DD=9;
+let CAR=[138,141,144],yaw=-35,tilt=20,vy=0,lx=0,ly=0,dn=false,dirty=1,dpr=1,Wd=0,Hd=0,lastBl=0;
+const ang={fl:0,fr:0,tr:0},tgt={fl:0,fr:0,tr:0};
+const T=[[-1.98,.34,.66,.88,.6,.92],[-1.9,.26,.73,.9,.64,.98],[-1.7,.22,.82,.92,.68,1.08],[-1.45,.2,.86,.94,.68,1.225],[-1.05,.2,.87,.96,.64,1.45],[.3,.2,.87,.96,.64,1.46],[.45,.2,.87,.96,.64,1.44],[.75,.2,.87,.96,.72,1.18],[1,.2,.86,.96,.78,.98],[1.45,.2,.85,.88,.78,.9],[1.7,.24,.8,.78,.72,.82],[1.9,.27,.74,.72,.66,.76],[1.98,.3,.66,.62,.6,.66]];
+function samp(x){let i=0;while(i<T.length-2&&x>T[i+1][0])i++;const a=T[i],b=T[i+1],t=(x-a[0])/(b[0]-a[0]);return a.map((v,j)=>j?v+(b[j]-v)*t:x)}
+function ring(s){const x=s[0],hb=s[1],ws=s[2],hs=s[3],wt=s[4],ht=s[5],y1=hs-.07,y2=hb+.14;
+const hp=[[0,ht+.02],[wt,ht],[ws*.985,hs],[ws,y1]];for(let j=1;j<6;j++)hp.push([ws,y1+(y2-y1)*j/6]);hp.push([ws,y2],[ws*.82,hb],[0,hb]);
+const r=hp.map(p=>[x,p[1],p[0]]);for(let j=10;j>=1;j--)r.push([x,hp[j][1],-hp[j][0]]);return r}
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const crs=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const nrm=a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return[a[0]/l,a[1]/l,a[2]/l]};
+function dpt(p,sd,a){const dx=p[0]-.7,dz=p[2]-sd*.87,c=Math.cos(a),s=Math.sin(a);return[.7+dx*c+dz*s,p[1],sd*.87-dx*s+dz*c]}
+function hpt(p,a){const dx=p[0]+1.05,dy=p[1]-1.45,c=Math.cos(a),s=Math.sin(-a);return[-1.05+dx*c-dy*s,1.45+dx*s+dy*c,p[2]]}
+// maillage
+const M=[],NS=66;
+let S=Array.from({length:NS+1},(_,i)=>samp(-1.98+3.96*i/NS));
+S=S.map((s,i)=>i&&i<NS?s.map((v,j)=>j?(S[i-1][j]+2*v+S[i+1][j])/4:v):s);
+const RG=S.map(ring),TY=j=>j<=3?j:j<=8?4:j===9?7:8;
+for(let i=0;i<NS;i++)for(let k=0;k<22;k++){if(k===10||k===11)continue;const t=TY(k<=11?k:21-k),k2=(k+1)%22;
+const A=RG[i][k],B=RG[i][k2],C=RG[i+1][k2],E=RG[i+1][k];
+const xm=(A[0]+C[0])/2,ym=(A[1]+B[1]+C[1]+E[1])/4,zm=(A[2]+B[2]+C[2]+E[2])/4,sd=k<11?1:-1;
+if((t===3||t===4||t===7)&&WX.some(c=>Math.hypot(xm-c,ym-R)<R+.07))continue;
+let c='p',g=null;
+if(t===0){if(xm>.45&&xm<1||xm<-1.07&&xm>-1.86)c='g'}
+else if(t===1){if(xm>-1.5&&xm<.95)c='g'}
+else if((t===2||t===3)&&xm>1.7)c='l';
+else if((t===2||t===3)&&xm<-1.88)c='t';
+else if(t===7)c='d';
+if(t>=1&&t<=4&&xm>-.64&&xm<.7)g=sd>0?'fr':'fl';
+if(t===0&&xm<-1.07)g='tr';
+const n0=crs(sub(B,A),sub(E,A));
+M.push({p:[A,B,C,E],t,c,xm,sd,g,sg:dot(n0,[0,t<=2||t===7?ym-.7:0,zm])<0?-1:1})}
+M.push({p:RG[NS],n:[1,0,0],col:[24,24,26]},{p:RG[0],n:[-1,0,0],c:'p'});
+[-1,1].forEach(sd=>M.push({p:[[-.64,.36,sd*.76],[.7,.36,sd*.76],[.7,.98,sd*.76],[-.64,.98,sd*.76]],n:[0,0,sd],col:[18,21,26],b:-.15}));
+M.push({p:[[-1.9,.9,-.55],[-1.05,.9,-.55],[-1.05,.9,.55],[-1.9,.9,.55]],n:[0,1,0],col:[18,21,26],b:-.15});
+// roues
+for(const xc of WX)for(const s of[-1,1]){const zo=s*.81,zi=s*.6,N=20,c=(a,r,z)=>[xc+r*Math.cos(a),R+r*Math.sin(a),z],A=j=>j*6.2832/N;
+M.push({p:Array.from({length:N},(_,j)=>c(A(j),.4,s*.78)),n:[0,0,s],col:[10,10,10],b:-.3});
+M.push({p:Array.from({length:N},(_,j)=>c(A(j),R,zo)),n:[0,0,s],col:[16,16,16]});
+M.push({p:Array.from({length:28},(_,j)=>c(j*6.2832/28,.42,s*.875)).concat(Array.from({length:28},(_,j)=>c((27-j)*6.2832/28,.325,s*.875))),n:[0,0,s],col:[12,12,14],b:.25});
+for(let j=0;j<N;j++){const a=A(j),b=A(j+1);
+M.push({p:[c(a,R,zo),c(b,R,zo),c(b,R,zi),c(a,R,zi)],n:[Math.cos((a+b)/2),Math.sin((a+b)/2),0],col:[14,14,14]});
+M.push({p:[[xc,R,zo],c(a,.205,zo),c(b,.205,zo)],n:[0,0,s],col:j%2?[196,200,205]:[72,76,82],b:.04})}
+M.push({p:[c(-1.05,.12,zo),c(-.35,.12,zo),c(-.35,.19,zo),c(-1.05,.19,zo)],n:[0,0,s],col:[200,30,35],b:.08})}
+function colOf(q){const c=q.c;if(c==='g')return[26,38,50];if(c==='l')return(lastBl&(q.sd<0?1:2))?[255,176,32]:[232,238,244];if(c==='t')return[190,25,35];if(c==='d')return CAR.map(x=>x*.35);
+if(q.g&&q.g[0]==='f'&&q.t>=3&&q.t<=6&&(q.xm>.655||q.xm<-.595))return[24,26,30];return CAR}
+function draw(){
+const ca=Math.cos(yaw*RD),sa=Math.sin(yaw*RD),cb=Math.cos(tilt*RD),sb=Math.sin(tilt*RD),F=Math.min(Wd,Hd*1.5)*.8*DD/3.96,cy=Hd*.52;
+const rv=v=>{const x=v[0]*ca+v[2]*sa,z=-v[0]*sa+v[2]*ca;return[x,v[1]*cb-z*sb,v[1]*sb+z*cb]};
+const V=p=>rv([p[0],p[1]-.6,p[2]]);
+const pj=v=>{const s=F/(DD-v[2]);return[Wd/2+v[0]*s,cy-v[1]*s]};
+const poly=(vs,f,st)=>{cx.beginPath();vs.forEach((q,i)=>{const a=pj(q);i?cx.lineTo(a[0],a[1]):cx.moveTo(a[0],a[1])});cx.closePath();cx.fillStyle=f;cx.fill();if(st){cx.strokeStyle=st;cx.lineWidth=.7;cx.stroke()}};
+cx.clearRect(0,0,Wd,Hd);
+for(let j=0;j<24;j++){const a=j*Math.PI/12,b=a+Math.PI/12;poly([[0,0,0],[2.35*Math.cos(a),0,2.35*Math.sin(a)],[2.35*Math.cos(b),0,2.35*Math.sin(b)]].map(V),j%2?'rgba(128,128,128,.10)':'rgba(128,128,128,.2)')}
+poly(Array.from({length:24},(_,j)=>[2.2*Math.cos(j*Math.PI/12),0,.95*Math.sin(j*Math.PI/12)]).map(V),'rgba(0,0,0,.3)');
+const out=[];
+for(const q of M){let p=q.p;const a=q.g?ang[q.g]:0;
+if(a>.2){const r=a*RD;p=q.g==='tr'?p.map(v=>hpt(v,r)):p.map(v=>dpt(v,q.sd,q.sd*r))}
+let n=q.n;if(!n){n=nrm(crs(sub(p[1],p[0]),sub(p[p.length-1],p[0])));n=[n[0]*q.sg,n[1]*q.sg,n[2]*q.sg]}
+const v=p.map(V),nv=rv(n);let X=0,Y=0,Z=0;v.forEach(w=>{X+=w[0];Y+=w[1];Z+=w[2]});X/=v.length;Y/=v.length;Z/=v.length;
+let col=q.col||colOf(q);
+if(nv[0]*-X+nv[1]*-Y+nv[2]*(DD-Z)<=0){if(a>1)col=[22,25,30];else continue}
+const lam=Math.max(0,n[0]*.342+n[1]*.831+n[2]*.44);let f=.45+.65*lam,add=0;
+if(q.c==='g'&&!q.col){f=.55+.45*lam;add=Math.pow(lam,6)*90}
+const fill='rgb('+col.map(x=>Math.min(255,x*f+add)|0).join(',')+')';
+out.push({z:Z+(q.b||0),v,fill})}
+out.sort((a,b)=>a.z-b.z);out.forEach(o=>poly(o.v,o.fill,o.fill))}
+function pose(){tgt.fl=doors.fl?62:0;tgt.fr=doors.fr?62:0;tgt.tr=doors.tr?68:0;
+$$('#op button').forEach(b=>{if(doors[b.dataset.d]!==undefined)b.classList.toggle('on',!!doors[b.dataset.d])});dirty=1}
+function dr(){pose();chk()}
+$$('#op button').forEach(b=>b.onclick=()=>{const d=b.dataset.d;if(d==='all'||d==='none')for(const k in doors)doors[k]=d==='all'?1:0;else doors[d]=doors[d]?0:1;dr()});
+function rs(){dpr=window.devicePixelRatio||1;Wd=PL.clientWidth;Hd=PL.clientHeight;cv.width=Wd*dpr;cv.height=Hd*dpr;cx.setTransform(dpr,0,0,dpr,0,0);dirty=1}
+new ResizeObserver(rs).observe(PL);
+PL.onpointerdown=e=>{dn=true;lx=e.clientX;ly=e.clientY;vy=0;PL.setPointerCapture(e.pointerId)};
+PL.onpointermove=e=>{if(!dn)return;vy=(e.clientX-lx)*.6;yaw+=vy;tilt=Math.max(0,Math.min(88,tilt+(e.clientY-ly)*.3));lx=e.clientX;ly=e.clientY;dirty=1};
+PL.onpointerup=PL.onpointercancel=()=>{dn=false};
+(function loop(){let m=dirty;for(const k in tgt){const d=tgt[k]-ang[k];if(d!==0){ang[k]=Math.abs(d)>.1?ang[k]+d*.16:tgt[k];m=1}}
+if(!dn&&Math.abs(vy)>.05){yaw+=vy;vy*=.94;m=1}
+const bl=(+$('#blL').style.opacity||0)+2*(+$('#blR').style.opacity||0);if(bl!==lastBl){lastBl=bl;m=1}
+if(m&&Wd){dirty=0;draw()}requestAnimationFrame(loop)})();
+$$('#vw button').forEach(b=>b.onclick=()=>{const v={a:[22,-35],t:[88,90],p:[0,0],f:[8,-90]}[b.dataset.v];tilt=v[0];yaw=v[1];dirty=1});
+$$('#cl button').forEach(b=>b.onclick=()=>{CAR=[1,3,5].map(i=>parseInt(b.dataset.c.slice(i,i+2),16));dirty=1});
+rs();pose();
+window.canUpdate=function(o){if(o.doors)Object.assign(doors,o.doors);delete o.doors;Object.assign(st,o);sim=false;pose();trip()};
+function L(p){try{window.Android&&Android.launch(p)}catch(e){}}
+// conduite simulée
+let sim=false;
+$('#sim').onclick=e=>{sim=!sim;e.target.textContent=sim?'Arrêter la simulation':'Simuler la conduite';if(!sim){st.spd=0;st.rpm=0}};
+let bl=0;
+setInterval(()=>{if(sim){st.spd=Math.min(90,st.spd+3);st.rpm=800+st.spd*28;st.fuel=Math.max(0,st.fuel-.02);st.km+=st.spd/3600*1.5}
+else{st.spd=Math.max(0,st.spd-6);st.rpm=st.spd?800+st.spd*28:0}
+st.ext+=(Math.random()-.5)*.1;bl=!bl;const on=st.spd>0&&sim&&Math.random()<.02;
+$('#blL').style.opacity=on&&bl?1:0;$('#spd').textContent=st.spd.toFixed(0);$('#rad').textContent=!st.spd&&doors.tr?'obstacle arrière':'—';
+const a=st.spd>5&&Object.values(doors).some(v=>v);const al=$('#al');al.style.display=a?'block':'none';if(a)al.textContent='⚠️ Ouvrant ouvert en roulant — arrête-toi en sécurité';
+trip()},1000);
+// bord
+function trip(){const t=[['Carburant',st.fuel.toFixed(0)+' %'],['Batterie',st.bat.toFixed(1)+' V'],['Extérieur',st.ext.toFixed(0)+' °C'],['Kilométrage',Math.round(st.km).toLocaleString('fr-FR')+' km'],['Régime',Math.round(st.rpm)+' tr/min'],['Vitesse',st.spd.toFixed(0)+' km/h'],['Lave-glace',st.wash?'Niveau OK':'Niveau bas']];$('#tiles').innerHTML=t.map(x=>`<div class="g tile"><span class="mut">${x[0]}<
